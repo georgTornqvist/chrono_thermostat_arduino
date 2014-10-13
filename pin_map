@@ -1,0 +1,17 @@
+
+cablaggio LCD_SPI
+
+RS = 8
+RW = 9
+EN = 6
+lcdBkl = 3
+cablaggio componenti
+
+Potenziometro 	= A0
+ledGreen 	= 10
+ledRed		= 11
+relay		= 12
+DHT11 		= 2
+RTC SCL		= A5
+RTC SDA		= A4
+ 
