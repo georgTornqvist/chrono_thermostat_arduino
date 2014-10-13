@@ -290,11 +290,22 @@ int minutes_elapsed()
 	return elapsed_mins;
 }
 
-
+void draw(void) {
+  // graphic commands to redraw the complete screen should be placed here
+  u8g.setFont(u8g_font_unifont);
+  //u8g.setFont(u8g_font_osb21);
+  u8g.drawStr( 0, 22, "Hello World!");
+}
 void loop()
 {
-	u8g.setFont(u8g_font_unifont);//u8g.setFont(u8g_font_osb21);
-	u8g.drawStr( 0, 22, ">> RTC OK");
+	  u8g.firstPage();
+	  do {
+		  // graphic commands to redraw the complete screen should be placed here
+		  u8g.setFont(u8g_font_unifont);
+		  //u8g.setFont(u8g_font_osb21);
+		  u8g.setCursorPos(0, 20);
+		  u8g.print("act_temp");
+	  } while( u8g.nextPage() );
 
 
 	int x = 0;
@@ -390,7 +401,7 @@ void loop()
 	delay(100);
 	stop:
 
-	delay(500);
+	delay(5000);
 }
 
 

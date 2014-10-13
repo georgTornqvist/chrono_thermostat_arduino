@@ -5,6 +5,7 @@ RS = 8
 RW = 9
 EN = 6
 lcdBkl = 3
+
 cablaggio componenti
 
 Potenziometro 	= A0
