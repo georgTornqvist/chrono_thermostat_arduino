@@ -15,6 +15,8 @@
 // Do not remove the include below
 #include "chrono_thermostat.h"
 
+
+
 //Define for Graphic LCD128x64 controller ST7920 SPI
 #define LCD_RS  8  // Arduino-Pin an Display RS
 #define LCD_RW  9  // Arduino-Pin RW LCD
@@ -290,22 +292,39 @@ int minutes_elapsed()
 	return elapsed_mins;
 }
 
-void draw(void) {
+void draw(float value) {
   // graphic commands to redraw the complete screen should be placed here
   u8g.setFont(u8g_font_unifont);
   //u8g.setFont(u8g_font_osb21);
-  u8g.drawStr( 0, 22, "Hello World!");
+  //u8g.drawStr( 0, 22, "act_temp");
+
+//void U8GLIB::setPrintPos(u8g_uint_t x, u8g_uint_t y);
+
 }
 void loop()
 {
-	  u8g.firstPage();
+
+	u8g.firstPage();
+	  do {
+		  u8g.setFont(u8g_font_5x7r);
+		  u8g.setPrintPos(0, 20);
+		  char temp[5];
+		  dtostrf(act_temp,5,1,temp);
+		  //u8g.setPrintPos(20,0);
+		   //u8g.setFont(u8g_font_osb21);
+		   u8g.print(act_temp);
+		   //U8GLIB::setPrintPos(0,20);
+		  //u8g.drawStr(4,24,temp);
+
+	  } while( u8g.nextPage() );
+	  /*u8g.firstPage();
 	  do {
 		  // graphic commands to redraw the complete screen should be placed here
 		  u8g.setFont(u8g_font_unifont);
 		  //u8g.setFont(u8g_font_osb21);
 		  u8g.setCursorPos(0, 20);
 		  u8g.print("act_temp");
-	  } while( u8g.nextPage() );
+	  } while( u8g.nextPage() );*/
 
 
 	int x = 0;
@@ -340,18 +359,18 @@ void loop()
 		//print_LCD();
 		//lcd.setCursor(11,0);
 		//lcd.print("-OFF-");
-		digitalWrite(lcd_bkl, 0);
+		analogWrite(lcd_bkl, 5);
 		goto stop;
 		}
 
 	//5 seconds after the last set turn off backlight
 	if(seconds_elapsed() >= delay_set)
-		digitalWrite(lcd_bkl, 0);
+		analogWrite(lcd_bkl, 5);
 
 	//if the potentiometer is turn set a new target temp and turn on backlight
 	if(x != prev_temp)
 		{
-		digitalWrite(lcd_bkl, 1);
+		analogWrite(lcd_bkl, 255);
 		prev_time = (second());
 		change_temp = 1;
 		delay(100);
